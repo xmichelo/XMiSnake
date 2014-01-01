@@ -33,12 +33,16 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="mainwindow.cpp" />
+    <ClCompile Include="GlWidget.cpp" />
+    <ClCompile Include="Constants.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_MainWindow.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="GlWidget.h" />
+    <ClInclude Include="Constants.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainWindow.ui" />
