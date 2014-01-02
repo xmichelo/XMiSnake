@@ -19,8 +19,12 @@
 class Snake
 {
 public: // member functions
-   Snake(QPoint const& position); ///< Default constructor
+   Snake(QPoint const& position = QPoint(0, 0)); ///< Default constructor
+   Snake(Snake const& ref); ///< Copy-constructor
    ~Snake(); ///< Destructor
+   Snake& operator=(Snake& ref); ///< Assignment operator
+   void swap(Snake& ref); ///< Swap the snake with another one
+   void reset(QPoint const& position); ///< Reset the snake
    void render(); ///< Render the snake on screen
    void setDirection(EDirection direction); ///< Set the direction of the snake
    bool move(); ///< move the snake in the current direction
@@ -31,8 +35,6 @@ public: // member functions
 
 private: // member functions
 
-   Snake(Snake const&); ///< Disabled copy-constructor
-   Snake& operator=(Snake const&); ///< Disabled assignment operator
 
 private: // data members
    DequeQPoint points_; ///< The list of point representing the snake

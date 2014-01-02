@@ -11,7 +11,8 @@
 
 
 namespace {
-   qint32 kIterationDelayMs(200);
+   qint32 const kIterationDelayMs(200); ///< The delay between two iterations of the game (a.k.a. game speed)
+   QPoint const kSnakeInitialPosition(10, 10); ///< The initial position of the snake
 }
 
 //**********************************************************************************************************************
@@ -29,10 +30,8 @@ GameEngine& gameEngine()
 //**********************************************************************************************************************
 GameEngine::GameEngine(QObject* parent)
    : QObject(parent)
-   , snake_(QPoint(10, 10))
-   , nextIterationTime_(QDateTime::currentDateTime().addMSecs(kIterationDelayMs))
 {
-   this->generatePill();
+   this->reset();   
 }
 
 
@@ -44,6 +43,16 @@ GameEngine::~GameEngine()
 
 }
 
+
+//**********************************************************************************************************************
+// 
+//**********************************************************************************************************************
+void GameEngine::reset()
+{
+   snake_.reset(kSnakeInitialPosition);
+   this->generatePill();
+   nextIterationTime_ = QDateTime::currentDateTime().addMSecs(kIterationDelayMs);
+}
 
 //**********************************************************************************************************************
 // 
@@ -121,3 +130,4 @@ void GameEngine::generatePill()
       }
    }
 }
+

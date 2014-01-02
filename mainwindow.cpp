@@ -98,6 +98,8 @@ void MainWindow::onGameOver()
 {
    timer_->stop();
    QMessageBox::information(this, "Game Over", "Game Over!");
+   gameEngine().reset();
+   this->setupTimer();
 }
 
 
@@ -108,4 +110,6 @@ void MainWindow::onGameWon()
 {
    timer_->stop();
    QMessageBox::information(this, "Game Won", "Game Won!");
+   gameEngine().reset();
+   this->setupTimer();
 }

@@ -21,7 +21,8 @@ class GameEngine: public QObject
    Q_OBJECT
 public: // member functions
    ~GameEngine(); ///< Destructor
-   void render(); // render the game on screen
+   void reset(); ///< Reset the game
+   void render(); ///< render the game on screen
    bool checkAndIterate(); ///< Check if it is already time for the next iteration
    void iterate(); ///< Iterate the game engine
    void setSnakeDirection(EDirection direction); ///< Set the direction of the snake
