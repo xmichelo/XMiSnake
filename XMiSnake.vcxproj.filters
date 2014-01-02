@@ -52,9 +52,7 @@
     <ClInclude Include="GlWidget.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Snake.h" />
-    <ClInclude Include="Types.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
+    <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainWindow.ui" />

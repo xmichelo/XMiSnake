@@ -22,7 +22,7 @@
      <number>0</number>
     </property>
     <item row="1" column="1">
-     <widget class="GlWidget" name="widget" native="true">
+     <widget class="GlWidget" name="glWidget" native="true">
       <property name="minimumSize">
        <size>
         <width>640</width>

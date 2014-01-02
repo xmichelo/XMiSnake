@@ -15,4 +15,14 @@
 typedef std::deque<QPoint> DequeQPoint; ///< Declaration of deque of QPoint
 
 
+//**********************************************************************************************************************
+/// \brief Enumeration for direction
+//**********************************************************************************************************************
+enum EDirection {
+   eUp      = 0, ///< Up direction
+   eDown    = 1, ///< Down direction 
+   eLeft    = 2, ///< Left direction
+   eRight   = 3, ///< Right direction
+}; 
+
 #endif // #ifndef XMI__SNAKE__TYPES__H

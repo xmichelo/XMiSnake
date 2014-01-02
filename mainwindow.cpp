@@ -25,6 +25,8 @@ MainWindow::MainWindow(QWidget *parent, Qt::WFlags flags)
 {
    ui_.setupUi(this);
    this->setupTimer();
+   connect(&(gameEngine()), SIGNAL(gameOver()), this, SLOT(onGameOver()));
+   connect(&(gameEngine()), SIGNAL(gameWon()), this, SLOT(onGameWon()));
 }
 
 
@@ -52,5 +54,58 @@ void MainWindow::setupTimer()
 //**********************************************************************************************************************
 void MainWindow::onTimer()
 {
-   gameEngine().checkAndIterate();
+   if (gameEngine().checkAndIterate())
+      ui_.glWidget->updateGL();
+}
+
+
+//**********************************************************************************************************************
+// 
+//**********************************************************************************************************************
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+   if (event->isAutoRepeat())
+   {
+      event->ignore();
+      return;
+   }
+   switch (event->key())
+   {
+   case Qt::Key_Up:  
+      gameEngine().setSnakeDirection(eUp);
+      break;
+   case Qt::Key_Down:  
+      gameEngine().setSnakeDirection(eDown);
+      break;
+   case Qt::Key_Left:  
+      gameEngine().setSnakeDirection(eLeft);
+      break;
+   case Qt::Key_Right:  
+      gameEngine().setSnakeDirection(eRight);
+      break;
+   default:
+      event->ignore();
+      return;
+   }
+   event->accept();
+}
+
+
+//**********************************************************************************************************************
+// 
+//**********************************************************************************************************************
+void MainWindow::onGameOver()
+{
+   timer_->stop();
+   QMessageBox::information(this, "Game Over", "Game Over!");
+}
+
+
+//**********************************************************************************************************************
+// 
+//**********************************************************************************************************************
+void MainWindow::onGameWon()
+{
+   timer_->stop();
+   QMessageBox::information(this, "Game Won", "Game Won!");
 }

@@ -10,7 +10,7 @@
 
 
 namespace {
-   qint32 kIterationDelayMs(1000);
+   qint32 kIterationDelayMs(200);
 }
 
 //**********************************************************************************************************************
@@ -56,18 +56,19 @@ void GameEngine::render()
 
 
 //**********************************************************************************************************************
-// 
+/// \return true if and only if the game was iterated
 //**********************************************************************************************************************
-void GameEngine::checkAndIterate()
+bool GameEngine::checkAndIterate()
 {
    QDateTime const currentTime(QDateTime::currentDateTime());
    if (currentTime < nextIterationTime_)
-      return;
+      return false;
    this->iterate();
    do
    {
       nextIterationTime_ = nextIterationTime_.addMSecs(kIterationDelayMs);
    } while (nextIterationTime_ <= currentTime);
+   return true;
 }
 
 
@@ -76,5 +77,15 @@ void GameEngine::checkAndIterate()
 //**********************************************************************************************************************
 void GameEngine::iterate()
 {
-   qDebug(__FUNCTION__"()");
+   if (!snake_.move())
+      emit gameOver();
+}
+
+
+//**********************************************************************************************************************
+/// \param[in] direction The new direction of the snake
+//**********************************************************************************************************************
+void GameEngine::setSnakeDirection(EDirection direction)
+{
+   snake_.setDirection(direction);
 }

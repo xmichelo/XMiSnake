@@ -22,6 +22,8 @@ public: // member functions
    Snake(QPoint const& position); ///< Default constructor
    ~Snake(); ///< Destructor
    void render(); ///< Render the snake on screen
+   void setDirection(EDirection direction); ///< Set the direction of the snake
+   bool move(); ///< move the snake in the current direction
 
 private: // member functions
    Snake(Snake const&); ///< Disabled copy-constructor
@@ -29,6 +31,7 @@ private: // member functions
 
 private: // data members
    DequeQPoint points_; ///< The list of point representing the snake
+   EDirection direction_; ///< The direction of the snake
 };
 
 

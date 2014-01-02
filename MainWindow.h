@@ -27,9 +27,12 @@ private: // data members
    MainWindow(MainWindow const&); /// Disabled copy-constructor
    MainWindow& operator=(MainWindow const&); ///< Disabled assignment operator
    void setupTimer(); ///< Setup the timer
+   void keyPressEvent(QKeyEvent *event); ///< Key press event handler
 
 private slots:
    void onTimer(); ///< Slot for the timer
+   void onGameOver(); ///< Slot for the game over signal
+   void onGameWon(); ///< Slot for the game over signal
 
 private:
    Ui::MainWindowClass ui_; ///< The UI for the window

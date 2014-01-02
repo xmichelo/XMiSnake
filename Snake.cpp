@@ -37,6 +37,7 @@ void renderSnakePart(QPoint const& position)
 //**********************************************************************************************************************
 Snake::Snake(QPoint const& position)
    : points_(1, position)
+   , direction_(eUp)
 {
 
 }
@@ -59,4 +60,53 @@ void Snake::render()
    glColor3ub(255, 255, 255);
    for (DequeQPoint::const_iterator it = points_.begin(); it != points_.end(); ++it)
       renderSnakePart(*it);
+}
+
+
+//**********************************************************************************************************************
+/// \param[in] direction The new direction of the snake
+//**********************************************************************************************************************
+void Snake::setDirection(EDirection direction)
+{
+   direction_ = direction;
+   qDebug("New snake direction: %i", direction_);
+}
+
+
+//**********************************************************************************************************************
+// 
+//**********************************************************************************************************************
+bool Snake::move()
+{
+   Q_ASSERT(points_.size() > 0);
+   QPoint point(points_.back());
+   switch (direction_)
+   {
+   case eUp:
+      if (point.y() <= 0)
+         return false;
+      point.setY(point.y() - 1);
+      break;
+   case eDown:
+      if (point.y() >= kBoardHeigth - 1)
+         return false;
+      point.setY(point.y() + 1);
+      break;
+   case eLeft:
+      if (point.x() <= 0)
+         return false;
+      point.setX(point.x() - 1);
+      break;
+   case eRight:
+      if (point.x() >= kBoardWidth - 1)
+         return false;
+      point.setX(point.x() + 1);
+      break;
+   default:
+      Q_ASSERT(false);
+      return false;
+   }
+   points_.push_back(point);
+   points_.pop_front();
+   return true;
 }
