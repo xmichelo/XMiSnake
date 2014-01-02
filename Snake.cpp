@@ -121,7 +121,7 @@ bool Snake::move()
 
 //**********************************************************************************************************************
 /// \param[in] point The point
-/// \return true if the 
+/// \return true if the snake is over the given point
 //**********************************************************************************************************************
 bool Snake::isOverPoint(QPoint const point) const
 {
@@ -148,4 +148,13 @@ QPoint Snake::getHeadPosition() const
 void Snake::markForGrowth()
 {
    markedForGrowth_ = true;
+}
+
+
+//**********************************************************************************************************************
+/// \return The size of the snake
+//**********************************************************************************************************************
+qint32 Snake::getSize() const
+{
+   return points_.size();
 }

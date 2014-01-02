@@ -80,9 +80,17 @@ bool GameEngine::checkAndIterate()
 void GameEngine::iterate()
 {
    if (!snake_.move())
+   {
       emit gameOver();
+      return;
+   }
    if (pill_.position_ == snake_.getHeadPosition())
    {
+      if ((kBoardWidth * kBoardWidth)  - 1 == snake_.getSize())
+      {
+         emit gameWon();
+         return;
+      }
       snake_.markForGrowth();
       this->generatePill();
    }

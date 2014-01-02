@@ -27,6 +27,7 @@ public: // member functions
    bool isOverPoint(QPoint const point) const; ///< Test if the snake is over a given point
    QPoint getHeadPosition() const; ///< Retrieve the position of the snake's head
    void markForGrowth(); ///< Mark the snake for growth
+   qint32 getSize() const; ///< Return the size of the snake
 
 private: // member functions
 
