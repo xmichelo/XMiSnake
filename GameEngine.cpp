@@ -11,7 +11,7 @@
 
 
 namespace {
-   qint32 const kIterationDelayMs(200); ///< The delay between two iterations of the game (a.k.a. game speed)
+   qint32 const kIterationDelayMs(100); ///< The delay between two iterations of the game (a.k.a. game speed)
    QPoint const kSnakeInitialPosition(10, 10); ///< The initial position of the snake
 }
 
