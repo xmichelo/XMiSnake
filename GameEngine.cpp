@@ -81,6 +81,11 @@ void GameEngine::iterate()
 {
    if (!snake_.move())
       emit gameOver();
+   if (pill_.position_ == snake_.getHeadPosition())
+   {
+      snake_.markForGrowth();
+      this->generatePill();
+   }
 }
 
 

@@ -38,6 +38,7 @@ void renderSnakePart(QPoint const& position)
 Snake::Snake(QPoint const& position)
    : points_(1, position)
    , direction_(eUp)
+   , markedForGrowth_(false)
 {
 
 }
@@ -107,7 +108,9 @@ bool Snake::move()
       return false;
    }
    points_.push_back(point);
-   points_.pop_front();
+   if (!markedForGrowth_)
+      points_.pop_front();
+   markedForGrowth_ = false;
    return true;
 }
 
@@ -122,4 +125,23 @@ bool Snake::isOverPoint(QPoint const point) const
       if (point == *it)
          return true;
    return false;
+}
+
+
+//**********************************************************************************************************************
+/// \return The position of the snake's head
+//**********************************************************************************************************************
+QPoint Snake::getHeadPosition() const
+{
+   Q_ASSERT(points_.size() > 0);
+   return points_.back();
+}
+
+
+//**********************************************************************************************************************
+// 
+//**********************************************************************************************************************
+void Snake::markForGrowth()
+{
+   markedForGrowth_ = true;
 }
