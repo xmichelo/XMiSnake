@@ -75,7 +75,9 @@ void Snake::setDirection(EDirection direction)
 
 
 //**********************************************************************************************************************
-// 
+/// A move is succesful if the snake does not go out of the board and does not bite itself.
+///
+/// \return true if and only if the move was successful 
 //**********************************************************************************************************************
 bool Snake::move()
 {
@@ -107,6 +109,8 @@ bool Snake::move()
       Q_ASSERT(false);
       return false;
    }
+   if (this->isOverPoint(point))
+      return false; // snake bites itself
    points_.push_back(point);
    if (!markedForGrowth_)
       points_.pop_front();
