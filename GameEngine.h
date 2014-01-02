@@ -27,6 +27,7 @@ public: // member functions
    void iterate(); ///< Iterate the game engine
    void setSnakeDirection(EDirection direction); ///< Set the direction of the snake
    void generatePill(); ///< Generate a new pill a a random available position
+   qint32 getScore(); ///< retrieve the score
 
 private: // member functions
    GameEngine(QObject* parent = nullptr); ///< Default constructor
@@ -34,7 +35,7 @@ private: // member functions
    GameEngine& operator=(GameEngine const&); ///< Disabled assignment operator
 
 private: // friend functions
-   friend GameEngine& gameEngine(); ///< Retrieve the only allowed instance of the GameEngine class
+   friend GameEngine& getGameEngine(); ///< Retrieve the only allowed instance of the GameEngine class
 
 signals:
    void gameOver(); ///< Game is over

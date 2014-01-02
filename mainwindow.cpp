@@ -25,8 +25,8 @@ MainWindow::MainWindow(QWidget *parent, Qt::WFlags flags)
 {
    ui_.setupUi(this);
    this->setupTimer();
-   connect(&(gameEngine()), SIGNAL(gameOver()), this, SLOT(onGameOver()));
-   connect(&(gameEngine()), SIGNAL(gameWon()), this, SLOT(onGameWon()));
+   connect(&(getGameEngine()), SIGNAL(gameOver()), this, SLOT(onGameOver()));
+   connect(&(getGameEngine()), SIGNAL(gameWon()), this, SLOT(onGameWon()));
 }
 
 
@@ -54,7 +54,7 @@ void MainWindow::setupTimer()
 //**********************************************************************************************************************
 void MainWindow::onTimer()
 {
-   if (gameEngine().checkAndIterate())
+   if (getGameEngine().checkAndIterate())
       ui_.glWidget->updateGL();
 }
 
@@ -72,16 +72,16 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
    switch (event->key())
    {
    case Qt::Key_Up:  
-      gameEngine().setSnakeDirection(eUp);
+      getGameEngine().setSnakeDirection(eUp);
       break;
    case Qt::Key_Down:  
-      gameEngine().setSnakeDirection(eDown);
+      getGameEngine().setSnakeDirection(eDown);
       break;
    case Qt::Key_Left:  
-      gameEngine().setSnakeDirection(eLeft);
+      getGameEngine().setSnakeDirection(eLeft);
       break;
    case Qt::Key_Right:  
-      gameEngine().setSnakeDirection(eRight);
+      getGameEngine().setSnakeDirection(eRight);
       break;
    default:
       event->ignore();
@@ -97,8 +97,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 void MainWindow::onGameOver()
 {
    timer_->stop();
-   QMessageBox::information(this, "Game Over", "Game Over!");
-   gameEngine().reset();
+   GameEngine& engine(getGameEngine());
+   QMessageBox::information(this, "Game Over", QString("Game Over!\n\nYour score: %1").arg(engine.getScore()));
+   engine.reset();
    this->setupTimer();
 }
 
@@ -109,7 +110,8 @@ void MainWindow::onGameOver()
 void MainWindow::onGameWon()
 {
    timer_->stop();
-   QMessageBox::information(this, "Game Won", "Game Won!");
-   gameEngine().reset();
+   GameEngine& engine(getGameEngine());
+   QMessageBox::information(this, "Game Over", QString("Game Over!\n\nYour score: %1").arg(engine.getScore()));
+   engine.reset();
    this->setupTimer();
 }

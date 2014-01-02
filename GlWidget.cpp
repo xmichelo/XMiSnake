@@ -44,7 +44,7 @@ void GlWidget::initializeGL()
 //**********************************************************************************************************************
 void GlWidget::paintGL()
 {
-   gameEngine().render();
+   getGameEngine().render();
    this->swapBuffers();
 }
 
