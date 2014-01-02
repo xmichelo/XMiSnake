@@ -1,30 +1,44 @@
 /// \file
-/// \date 2014-01-01
+/// \date 2014-01-02
 /// \author Xavier Michelon
 ///
-/// \brief Implementation of custom OpenGL widget class
+/// \brief Declaration of game engine
 
 
 #include "stdafx.h"
-#include "GlWidget.h"
 #include "GameEngine.h"
-#include "Constants.h"
 
 
+namespace {
+   qint32 kIterationDelayMs(1000);
+}
+
 //**********************************************************************************************************************
-/// \param[in] parent The parent widget
+// 
 //**********************************************************************************************************************
-GlWidget::GlWidget(QWidget* parent)
-   : QGLWidget(QGLFormat(QGL::AlphaChannel | QGL::DoubleBuffer | QGL::Rgba), parent)
+GameEngine& gameEngine()
 {
-   this->setAutoBufferSwap(false);
+   static GameEngine instance;
+   return instance;
+}
+
+
+//**********************************************************************************************************************
+/// \param[in] parent The parent object of the instance
+//**********************************************************************************************************************
+GameEngine::GameEngine(QObject* parent)
+   : QObject(parent)
+   , snake_(QPoint(10, 10))
+   , nextIterationTime_(QDateTime::currentDateTime().addMSecs(kIterationDelayMs))
+{
+
 }
 
 
 //**********************************************************************************************************************
 // 
 //**********************************************************************************************************************
-GlWidget::~GlWidget()
+GameEngine::~GameEngine()
 {
 
 }
@@ -33,33 +47,34 @@ GlWidget::~GlWidget()
 //**********************************************************************************************************************
 // 
 //**********************************************************************************************************************
-void GlWidget::initializeGL()
+void GameEngine::render()
 {
-   qDebug(__FUNCTION__"()");
    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+   glClear(GL_COLOR_BUFFER_BIT);
+   snake_.render();
 }
 
 
 //**********************************************************************************************************************
 // 
 //**********************************************************************************************************************
-void GlWidget::paintGL()
+void GameEngine::checkAndIterate()
 {
-   gameEngine().render();
-   this->swapBuffers();
+   QDateTime const currentTime(QDateTime::currentDateTime());
+   if (currentTime < nextIterationTime_)
+      return;
+   this->iterate();
+   do
+   {
+      nextIterationTime_ = nextIterationTime_.addMSecs(kIterationDelayMs);
+   } while (nextIterationTime_ <= currentTime);
 }
 
 
 //**********************************************************************************************************************
-/// \param[in] width The width of the widget in pixels
-/// \param[in] height The height of the widget in pixels
+// 
 //**********************************************************************************************************************
-void GlWidget::resizeGL(int width, int height)
+void GameEngine::iterate()
 {
    qDebug(__FUNCTION__"()");
-   glViewport(0, 0, width, height);
-   glMatrixMode(GL_PROJECTION);
-   glLoadIdentity();
-   glOrtho(0, kBoardWidth * kCellSize, kBoardHeigth * kCellSize, 0, -1.0, 0.0);
-   glMatrixMode(GL_MODELVIEW);
 }

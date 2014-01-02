@@ -35,6 +35,14 @@
     <ClCompile Include="mainwindow.cpp" />
     <ClCompile Include="GlWidget.cpp" />
     <ClCompile Include="Constants.cpp" />
+    <ClCompile Include="Snake.cpp" />
+    <ClCompile Include="GameEngine.cpp" />
+    <ClCompile Include="GeneratedFiles\Debug\moc_GameEngine.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_GameEngine.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_MainWindow.h">
@@ -43,11 +51,16 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="GlWidget.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="Snake.h" />
+    <ClInclude Include="Types.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainWindow.ui" />
     <CustomBuild Include="MainWindow.h" />
     <CustomBuild Include="XMiSnake.qrc" />
+    <CustomBuild Include="GameEngine.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="XMiSnake.rc" />

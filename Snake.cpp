@@ -1,56 +1,62 @@
 /// \file
-/// \date 2014-01-01
+/// \date 2014-01-02
 /// \author Xavier Michelon
 ///
-/// \brief Declaration of the application main window
+/// \brief Declaration of snake class
 
 
 #include "stdafx.h"
-#include "MainWindow.h"
-#include "GameEngine.h"
+#include "Snake.h"
+#include "Constants.h"
 
 
-namespace {
-   qint32 const kTimerIntervalMs(20); ///< The main timer interval in milliseconds
+void renderSnakePart(qint32 x, qint32 y); ///< Render a portion (square) of a snake
+
+
+//**********************************************************************************************************************
+/// \param[in] position The position of the snake part
+//**********************************************************************************************************************
+void renderSnakePart(QPoint const& position)
+{
+   qint32 const xMin((position.x() * kCellSize) + 1);
+   qint32 const xMax(xMin + kCellSize - 2);
+   qint32 const yMin((position.y() * kCellSize) + 1);
+   qint32 const yMax(yMin + kCellSize - 2);
+   glColor3ub(255, 255, 255);
+   glBegin(GL_QUADS);
+   glVertex2i(xMin, yMin);
+   glVertex2i(xMax, yMin);
+   glVertex2i(xMax, yMax);
+   glVertex2i(xMin, yMax);
+   glEnd();
 }
 
 
 //**********************************************************************************************************************
-/// \param[in] parent The parent widget of the window
-/// \param[in] flags The window flags
+/// \param[in] position The initial position of the snake
 //**********************************************************************************************************************
-MainWindow::MainWindow(QWidget *parent, Qt::WFlags flags)
-    : QMainWindow(parent, flags)
-    , timer_(new QTimer(this))
-{
-   ui_.setupUi(this);
-   this->setupTimer();
-}
-
-
-//**********************************************************************************************************************
-// 
-//**********************************************************************************************************************
-MainWindow::~MainWindow()
+Snake::Snake(QPoint const& position)
+   : points_(1, position)
 {
 
-}
-
-
-//**********************************************************************************************************************
-// 
-//**********************************************************************************************************************
-void MainWindow::setupTimer()
-{
-   connect(timer_, SIGNAL(timeout()), this, SLOT(onTimer()));
-   timer_->start(kTimerIntervalMs);
 }
 
 
 //**********************************************************************************************************************
 // 
 //**********************************************************************************************************************
-void MainWindow::onTimer()
+Snake::~Snake()
 {
-   gameEngine().checkAndIterate();
+
+}
+
+
+//**********************************************************************************************************************
+// 
+//**********************************************************************************************************************
+void Snake::render()
+{
+   glColor3ub(255, 255, 255);
+   for (DequeQPoint::const_iterator it = points_.begin(); it != points_.end(); ++it)
+      renderSnakePart(*it);
 }

@@ -26,9 +26,14 @@ public:
 private: // data members
    MainWindow(MainWindow const&); /// Disabled copy-constructor
    MainWindow& operator=(MainWindow const&); ///< Disabled assignment operator
+   void setupTimer(); ///< Setup the timer
+
+private slots:
+   void onTimer(); ///< Slot for the timer
 
 private:
    Ui::MainWindowClass ui_; ///< The UI for the window
+   QTimer* timer_; ///< The window timer
 };
 
 
