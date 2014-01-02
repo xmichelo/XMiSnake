@@ -113,12 +113,11 @@ void Snake::render()
 void Snake::setDirection(EDirection direction)
 {
    direction_ = direction;
-   qDebug("New snake direction: %i", direction_);
 }
 
 
 //**********************************************************************************************************************
-/// A move is succesful if the snake does not go out of the board and does not bite itself.
+/// A move is successful if the snake does not go out of the board and does not bite itself.
 ///
 /// \return true if and only if the move was successful 
 //**********************************************************************************************************************

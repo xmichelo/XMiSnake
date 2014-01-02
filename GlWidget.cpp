@@ -35,7 +35,6 @@ GlWidget::~GlWidget()
 //**********************************************************************************************************************
 void GlWidget::initializeGL()
 {
-   qDebug(__FUNCTION__"()");
    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
@@ -56,7 +55,6 @@ void GlWidget::paintGL()
 //**********************************************************************************************************************
 void GlWidget::resizeGL(int width, int height)
 {
-   qDebug(__FUNCTION__"()");
    glViewport(0, 0, width, height);
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
