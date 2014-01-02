@@ -24,6 +24,7 @@ public: // member functions
    void render(); ///< Render the snake on screen
    void setDirection(EDirection direction); ///< Set the direction of the snake
    bool move(); ///< move the snake in the current direction
+   bool isOverPoint(QPoint const point) const; ///< Test if the snake is over a given point
 
 private: // member functions
    Snake(Snake const&); ///< Disabled copy-constructor

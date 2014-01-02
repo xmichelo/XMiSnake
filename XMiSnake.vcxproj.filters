@@ -43,6 +43,7 @@
     <ClCompile Include="GeneratedFiles\Release\moc_GameEngine.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="Pill.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_MainWindow.h">
@@ -53,6 +54,7 @@
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Snake.h" />
     <ClInclude Include="Types.h" />
+    <ClInclude Include="Pill.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainWindow.ui" />

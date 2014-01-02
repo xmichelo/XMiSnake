@@ -110,3 +110,16 @@ bool Snake::move()
    points_.pop_front();
    return true;
 }
+
+
+//**********************************************************************************************************************
+/// \param[in] point The point
+/// \return true if the 
+//**********************************************************************************************************************
+bool Snake::isOverPoint(QPoint const point) const
+{
+   for (DequeQPoint::const_iterator it = points_.begin(); it != points_.end(); ++it)
+      if (point == *it)
+         return true;
+   return false;
+}

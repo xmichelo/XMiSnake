@@ -7,6 +7,7 @@
 
 #include "stdafx.h"
 #include "GameEngine.h"
+#include "Constants.h"
 
 
 namespace {
@@ -31,7 +32,7 @@ GameEngine::GameEngine(QObject* parent)
    , snake_(QPoint(10, 10))
    , nextIterationTime_(QDateTime::currentDateTime().addMSecs(kIterationDelayMs))
 {
-
+   this->generatePill();
 }
 
 
@@ -52,6 +53,7 @@ void GameEngine::render()
    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
    glClear(GL_COLOR_BUFFER_BIT);
    snake_.render();
+   pill_.render();
 }
 
 
@@ -88,4 +90,21 @@ void GameEngine::iterate()
 void GameEngine::setSnakeDirection(EDirection direction)
 {
    snake_.setDirection(direction);
+}
+
+
+//**********************************************************************************************************************
+// 
+//**********************************************************************************************************************
+void GameEngine::generatePill()
+{
+   while (true)
+   {
+      QPoint p= QPoint(qrand() % kBoardWidth, qrand() % kBoardHeigth);
+      if (!snake_.isOverPoint(p))
+      {
+         pill_.setPosition(p);
+         return;
+      }
+   }
 }

@@ -18,6 +18,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    qsrand(quint32(QDateTime::currentMSecsSinceEpoch()));
     MainWindow w;
     w.show();
     return a.exec();

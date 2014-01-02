@@ -10,6 +10,7 @@
 
 
 #include "Snake.h"
+#include "Pill.h"
 
 
 //**********************************************************************************************************************
@@ -24,12 +25,12 @@ public: // member functions
    bool checkAndIterate(); ///< Check if it is already time for the next iteration
    void iterate(); ///< Iterate the game engine
    void setSnakeDirection(EDirection direction); ///< Set the direction of the snake
+   void generatePill(); ///< Generate a new pill a a random available position
 
 private: // member functions
    GameEngine(QObject* parent = nullptr); ///< Default constructor
    GameEngine(GameEngine const&); ///< Disabled copy-constructor
    GameEngine& operator=(GameEngine const&); ///< Disabled assignment operator
-
 
 private: // friend functions
    friend GameEngine& gameEngine(); ///< Retrieve the only allowed instance of the GameEngine class
@@ -41,6 +42,7 @@ signals:
 private: // data members
    Snake snake_; ///< The snake
    QDateTime nextIterationTime_; ///< The time of the next iteration
+   Pill pill_; ///< The position of the pill
 };
 
 
