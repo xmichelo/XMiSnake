@@ -23,7 +23,6 @@ void renderSnakePart(QPoint const& position)
    qint32 const xMax(xMin + kCellSize - 2);
    qint32 const yMin((position.y() * kCellSize) + 1);
    qint32 const yMax(yMin + kCellSize - 2);
-   glColor3ub(255, 255, 255);
    glBegin(GL_QUADS);
    glVertex2i(xMin, yMin);
    glVertex2i(xMax, yMin);
@@ -101,7 +100,7 @@ void Snake::reset(QPoint const& position)
 //**********************************************************************************************************************
 void Snake::render()
 {
-   glColor3ub(255, 255, 255);
+   glColor3ub(kSnakeColor.red(), kSnakeColor.green(), kSnakeColor.blue());
    for (DequeQPoint::const_iterator it = points_.begin(); it != points_.end(); ++it)
       renderSnakePart(*it);
 }

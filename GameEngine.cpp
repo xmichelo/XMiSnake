@@ -10,11 +10,6 @@
 #include "Constants.h"
 
 
-namespace {
-   qint32 const kIterationDelayMs(100); ///< The delay between two iterations of the game (a.k.a. game speed)
-   QPoint const kSnakeInitialPosition(10, 10); ///< The initial position of the snake
-}
-
 //**********************************************************************************************************************
 // 
 //**********************************************************************************************************************
@@ -59,7 +54,8 @@ void GameEngine::reset()
 //**********************************************************************************************************************
 void GameEngine::render()
 {
-   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+   glClearColor(kBackgroundColor.redF(), kBackgroundColor.greenF(), kBackgroundColor.blueF(), 
+      kBackgroundColor.alphaF());
    glClear(GL_COLOR_BUFFER_BIT);
    snake_.render();
    pill_.render();

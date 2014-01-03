@@ -57,7 +57,7 @@ void Pill::setPosition(QPoint const& position)
 //**********************************************************************************************************************
 void Pill::render()
 {
-   glColor3ub(255, 0, 0);
+   glColor3ub(kPillColor.red(), kPillColor.green(), kPillColor.blue());
    qint32 const xMin((position_.x() * kCellSize) + 10);
    qint32 const xMax(xMin + kCellSize - 20);
    qint32 const yMin((position_.y() * kCellSize) + 10);
