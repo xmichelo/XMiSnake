@@ -96,11 +96,11 @@ void Snake::reset(QPoint const& position)
 }
 
 //**********************************************************************************************************************
-// 
+/// \param[in] glWidget The OpenGL widget
 //**********************************************************************************************************************
-void Snake::render()
+void Snake::render(GlWidget& glWidget)
 {
-   glColor3ub(kSnakeColor.red(), kSnakeColor.green(), kSnakeColor.blue());
+   glWidget.qglColor(kSnakeColor);
    for (DequeQPoint::const_iterator it = points_.begin(); it != points_.end(); ++it)
       renderSnakePart(*it);
 }
@@ -132,7 +132,7 @@ bool Snake::move()
       point.setY(point.y() - 1);
       break;
    case eDown:
-      if (point.y() >= kBoardHeigth - 1)
+      if (point.y() >= kBoardHeight - 1)
          return false;
       point.setY(point.y() + 1);
       break;

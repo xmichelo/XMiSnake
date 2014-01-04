@@ -9,6 +9,7 @@
 #define XMI__SNAKE__SNAKE__H
 
 
+#include "GlWidget.h"
 #include <deque>
 #include <Types.h>
 
@@ -25,7 +26,7 @@ public: // member functions
    Snake& operator=(Snake& ref); ///< Assignment operator
    void swap(Snake& ref); ///< Swap the snake with another one
    void reset(QPoint const& position); ///< Reset the snake
-   void render(); ///< Render the snake on screen
+   void render(GlWidget& glWidget); ///< Render the snake on screen
    void setDirection(EDirection direction); ///< Set the direction of the snake
    bool move(); ///< move the snake in the current direction
    bool isOverPoint(QPoint const point) const; ///< Test if the snake is over a given point

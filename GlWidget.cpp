@@ -55,9 +55,4 @@ void GlWidget::paintGL()
 //**********************************************************************************************************************
 void GlWidget::resizeGL(int width, int height)
 {
-   glViewport(0, 0, width, height);
-   glMatrixMode(GL_PROJECTION);
-   glLoadIdentity();
-   glOrtho(0, kBoardWidth * kCellSize, kBoardHeigth * kCellSize, 0, -1.0, 0.0);
-   glMatrixMode(GL_MODELVIEW);
 }

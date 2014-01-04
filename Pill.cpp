@@ -47,17 +47,17 @@ void Pill::setPosition(QPoint const& position)
    Q_ASSERT(position.x() >= 0);
    Q_ASSERT(position.x() < kBoardWidth);
    Q_ASSERT(position.y() >= 0);
-   Q_ASSERT(position.y() < kBoardHeigth);
+   Q_ASSERT(position.y() < kBoardHeight);
    position_ = position;
 }
 
 
 //**********************************************************************************************************************
-// 
+/// \param[in] glWidget The OpenGL widget
 //**********************************************************************************************************************
-void Pill::render()
+void Pill::render(GlWidget& glWidget)
 {
-   glColor3ub(kPillColor.red(), kPillColor.green(), kPillColor.blue());
+   glWidget.qglColor(kPillColor);
    qint32 const xMin((position_.x() * kCellSize) + 10);
    qint32 const xMax(xMin + kCellSize - 20);
    qint32 const yMin((position_.y() * kCellSize) + 10);

@@ -28,7 +28,11 @@ public: // member functions
    void iterate(); ///< Iterate the game engine
    void setSnakeDirection(EDirection direction); ///< Set the direction of the snake
    void generatePill(); ///< Generate a new pill a a random available position
-   qint32 getScore(); ///< retrieve the score
+   qint32 getScore() const; ///< retrieve the score
+   void setArenaViewportAndProjection(GlWidget& glWidget) const; ///< set the OpenGL viewport and project matrix
+   void setFullWindowViewportAndProjection(GlWidget& glWidget) const; ///< Set the openGL viewport and projection for full window rendering
+   void renderArenaBackground(GlWidget& glWidget) const; ///< Render the background of the arena
+   void renderScoreString(GlWidget& glWidget) const; ///< Render the score string
 
 private: // member functions
    GameEngine(QObject* parent = nullptr); ///< Default constructor

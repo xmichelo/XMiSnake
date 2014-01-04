@@ -55,18 +55,14 @@ void GameEngine::reset()
 //**********************************************************************************************************************
 void GameEngine::render(GlWidget& glWidget)
 {
-   glClearColor(kBackgroundColor.redF(), kBackgroundColor.greenF(), kBackgroundColor.blueF(), 
-      kBackgroundColor.alphaF());
+   glWidget.qglClearColor(kBackgroundColor);
    glClear(GL_COLOR_BUFFER_BIT);
-   snake_.render();
-   pill_.render();
-   glColor4ub(255, 255, 255, 255);
-   QFont& font(getFont());
-   font.setPointSize(32);
-   glWidget.renderText(5.0 , 440.0, 0.0, QString("Score: %1").arg(this->getScore()), getFont());
-//   font.setPointSize(16);
-//   glWidget.renderText(445 , 440.0, 0.0, QString("Press 'Space' to start").arg(this->getScore()), getFont());
-
+   this->setArenaViewportAndProjection(glWidget);
+   this->renderArenaBackground(glWidget);
+   snake_.render(glWidget);
+   pill_.render(glWidget);
+   this->setFullWindowViewportAndProjection(glWidget);
+   this->renderScoreString(glWidget);
 }
 
 
@@ -126,7 +122,7 @@ void GameEngine::generatePill()
 {
    while (true)
    {
-      QPoint p= QPoint(qrand() % kBoardWidth, qrand() % kBoardHeigth);
+      QPoint p= QPoint(qrand() % kBoardWidth, qrand() % kBoardHeight);
       if (!snake_.isOverPoint(p))
       {
          pill_.setPosition(p);
@@ -139,8 +135,71 @@ void GameEngine::generatePill()
 //**********************************************************************************************************************
 /// \return The current score
 //**********************************************************************************************************************
-qint32 GameEngine::getScore()
+qint32 GameEngine::getScore() const
 {
    return snake_.getSize() - 1;
+}
+
+
+//**********************************************************************************************************************
+/// \param[in] glWidget The OpenGL widget
+//**********************************************************************************************************************
+void GameEngine::setArenaViewportAndProjection(GlWidget& glWidget) const
+{
+   qint32 const arenaWidth(kBoardWidth * kCellSize);
+   qint32 const arenaHeight(kBoardHeight * kCellSize);
+   qint32 const xMargin((glWidget.width() - arenaWidth) / 2);
+   glViewport(xMargin, glWidget.height() - kTopMargin - arenaHeight, arenaWidth, arenaHeight);
+   glMatrixMode(GL_PROJECTION);
+   glLoadIdentity();
+   glOrtho(0, arenaWidth, arenaHeight, 0, -1.0, 1.0);
+   glMatrixMode(GL_MODELVIEW);
+}
+
+
+//**********************************************************************************************************************
+/// \param[in] glWidget The OpenGL widget
+//**********************************************************************************************************************
+void GameEngine::setFullWindowViewportAndProjection(GlWidget& glWidget) const
+{
+   qint32 const width(glWidget.width());
+   qint32 const height(glWidget.height());
+   glViewport(0, 0, width, height);
+   glMatrixMode(GL_PROJECTION);
+   glLoadIdentity();
+   glOrtho(0, width, height, 0, -1.0, 1.0);
+   glMatrixMode(GL_MODELVIEW);
+}
+
+
+//**********************************************************************************************************************
+/// \param[in] glWidget The OpenGL widget
+//**********************************************************************************************************************
+void GameEngine::renderArenaBackground(GlWidget& glWidget) const
+{
+   qint32 const arenaWidth(kBoardWidth * kCellSize);
+   qint32 const arenaHeight(kBoardHeight * kCellSize);
+   glWidget.qglColor(kArenaBackgroundColor);
+   glBegin(GL_QUADS);
+   glVertex2i(0, 0);
+   glVertex2i(arenaWidth, 0);
+   glVertex2i(arenaWidth, arenaHeight);
+   glVertex2i(0, arenaHeight);
+   glEnd();
+}
+
+
+//**********************************************************************************************************************
+/// \param[in] glWidget The OpenGL widget
+//**********************************************************************************************************************
+void GameEngine::renderScoreString(GlWidget& glWidget) const
+{
+   glWidget.qglColor(kFontColor);
+   QFont& font(getFont());
+   font.setPointSize(kScoreFontSize);
+   QFontMetrics metrics(font);
+   qint32 const xPos((glWidget.width() - (kBoardWidth * kCellSize)) / 2);
+   qint32 const yPos(kTopMargin + (kBoardHeight * kCellSize) + metrics.lineSpacing() - metrics.descent());
+   glWidget.renderText(xPos , yPos, 0.0, QString("Score: %1").arg(this->getScore()), getFont());
 }
 

@@ -9,6 +9,9 @@
 #define XMI__SNAKE__PILL__H
 
 
+#include "GlWidget.h"
+
+
 //**********************************************************************************************************************
 /// \brief Class representing a pill
 //**********************************************************************************************************************
@@ -19,7 +22,7 @@ public: // member functions
    ~Pill(); ///< Destructor
    QPoint getPosition() const; ///< Return the position of the pill
    void setPosition(QPoint const& position); ///< Set the position of the pill
-   void render(); ///< Return the pill
+   void render(GlWidget& glWidget); ///< Return the pill
 
 private: // member functions
    Pill(Pill const&); ///< Disabled copy-constructor
