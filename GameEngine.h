@@ -50,6 +50,7 @@ private: // data members
    Snake snake_; ///< The snake
    QDateTime nextIterationTime_; ///< The time of the next iteration
    Pill pill_; ///< The position of the pill
+   qint32 score_; ///< The game score
 };
 
 

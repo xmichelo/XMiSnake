@@ -48,6 +48,7 @@ void GameEngine::reset()
    snake_.reset(kSnakeInitialPosition);
    this->generatePill();
    nextIterationTime_ = QDateTime::currentDateTime().addMSecs(kIterationDelayMs);
+   score_ = 0;
 }
 
 //**********************************************************************************************************************
@@ -100,6 +101,7 @@ void GameEngine::iterate()
          emit gameWon();
          return;
       }
+      ++score_;
       snake_.markForGrowth();
       this->generatePill();
    }
@@ -137,7 +139,7 @@ void GameEngine::generatePill()
 //**********************************************************************************************************************
 qint32 GameEngine::getScore() const
 {
-   return snake_.getSize() - 1;
+   return score_;
 }
 
 
