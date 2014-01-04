@@ -24,9 +24,10 @@ MainWindow::MainWindow(QWidget *parent, Qt::WFlags flags)
     , timer_(new QTimer(this))
 {
    ui_.setupUi(this);
-   this->setupTimer();
-   connect(&(getGameEngine()), SIGNAL(gameOver()), this, SLOT(onGameOver()));
-   connect(&(getGameEngine()), SIGNAL(gameWon()), this, SLOT(onGameWon()));
+   GameEngine& gameEngine(getGameEngine());
+   connect(&gameEngine, SIGNAL(gameStarted()), this, SLOT(onGameStarted()));
+   connect(&gameEngine, SIGNAL(gameOver()), this, SLOT(onGameOver()));
+   connect(&gameEngine, SIGNAL(gameWon()), this, SLOT(onGameWon()));
 }
 
 
@@ -83,6 +84,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
    case Qt::Key_Right:  
       getGameEngine().setSnakeDirection(eRight);
       break;
+   case Qt::Key_Space:
+      getGameEngine().startGame();
+      break;
    default:
       event->ignore();
       return;
@@ -94,13 +98,20 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 //**********************************************************************************************************************
 // 
 //**********************************************************************************************************************
+void MainWindow::onGameStarted()
+{
+   this->setupTimer();
+   ui_.glWidget->updateGL();
+}
+
+
+//**********************************************************************************************************************
+// 
+//**********************************************************************************************************************
 void MainWindow::onGameOver()
 {
    timer_->stop();
-   GameEngine& engine(getGameEngine());
-   QMessageBox::information(this, "Game Over", QString("Game Over!\n\nYour score: %1").arg(engine.getScore()));
-   engine.reset();
-   this->setupTimer();
+   ui_.glWidget->updateGL();
 }
 
 
@@ -110,9 +121,6 @@ void MainWindow::onGameOver()
 void MainWindow::onGameWon()
 {
    timer_->stop();
-   GameEngine& engine(getGameEngine());
-   QMessageBox::information(this, "Game Over", QString("Game Over!\n\nYour score: %1").arg(engine.getScore()));
-   engine.reset();
-   this->setupTimer();
+   ui_.glWidget->updateGL();
 }
 

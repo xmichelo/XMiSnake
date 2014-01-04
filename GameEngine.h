@@ -20,6 +20,14 @@
 class GameEngine: public QObject
 {
    Q_OBJECT
+   /// \brief enumeration for the game state
+   enum EGameState {
+      eGameStateInit,      ///< Game has been initialized
+      eGameStateStarted,   ///< Game has started
+      eGameStateGameOver,  ///< Game is over
+      eGameStateGameWon    ///< Game was Won
+   };
+
 public: // member functions
    ~GameEngine(); ///< Destructor
    void reset(); ///< Reset the game
@@ -33,6 +41,7 @@ public: // member functions
    void setFullWindowViewportAndProjection(GlWidget& glWidget) const; ///< Set the openGL viewport and projection for full window rendering
    void renderArenaBackground(GlWidget& glWidget) const; ///< Render the background of the arena
    void renderScoreString(GlWidget& glWidget) const; ///< Render the score string
+   void startGame(); ///< Start the game
 
 private: // member functions
    GameEngine(QObject* parent = nullptr); ///< Default constructor
@@ -43,6 +52,7 @@ private: // friend functions
    friend GameEngine& getGameEngine(); ///< Retrieve the only allowed instance of the GameEngine class
 
 signals:
+   void gameStarted(); ///< Game is started
    void gameOver(); ///< Game is over
    void gameWon(); ///< Game is won
 
@@ -51,6 +61,7 @@ private: // data members
    QDateTime nextIterationTime_; ///< The time of the next iteration
    Pill pill_; ///< The position of the pill
    qint32 score_; ///< The game score
+   EGameState gameState_; ///< The game state
 };
 
 

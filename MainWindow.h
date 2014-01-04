@@ -31,8 +31,9 @@ private: // data members
 
 private slots:
    void onTimer(); ///< Slot for the timer
-   void onGameOver(); ///< Slot for the game over signal
-   void onGameWon(); ///< Slot for the game over signal
+   void onGameStarted(); ///< Slot for the 'game started' signal
+   void onGameOver(); ///< Slot for the 'game over' signal
+   void onGameWon(); ///< Slot for the 'game won' signal
 
 private:
    Ui::MainWindowClass ui_; ///< The UI for the window

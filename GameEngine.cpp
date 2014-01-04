@@ -49,6 +49,7 @@ void GameEngine::reset()
    this->generatePill();
    nextIterationTime_ = QDateTime::currentDateTime().addMSecs(kIterationDelayMs);
    score_ = 0;
+   gameState_ = eGameStateInit;
 }
 
 //**********************************************************************************************************************
@@ -72,6 +73,8 @@ void GameEngine::render(GlWidget& glWidget)
 //**********************************************************************************************************************
 bool GameEngine::checkAndIterate()
 {
+   if (eGameStateStarted != gameState_)
+      return false;
    QDateTime const currentTime(QDateTime::currentDateTime());
    if (currentTime < nextIterationTime_)
       return false;
@@ -89,8 +92,11 @@ bool GameEngine::checkAndIterate()
 //**********************************************************************************************************************
 void GameEngine::iterate()
 {
+   if (eGameStateStarted != gameState_)
+      return;
    if (!snake_.move())
    {
+      gameState_ = eGameStateGameOver;
       emit gameOver();
       return;
    }
@@ -98,6 +104,7 @@ void GameEngine::iterate()
    {
       if ((kBoardWidth * kBoardWidth)  - 1 == snake_.getSize())
       {
+         gameState_ = eGameStateGameWon;
          emit gameWon();
          return;
       }
@@ -203,5 +210,28 @@ void GameEngine::renderScoreString(GlWidget& glWidget) const
    qint32 const xPos((glWidget.width() - (kBoardWidth * kCellSize)) / 2);
    qint32 const yPos(kTopMargin + (kBoardHeight * kCellSize) + metrics.lineSpacing() - metrics.descent());
    glWidget.renderText(xPos , yPos, 0.0, QString("Score: %1").arg(this->getScore()), getFont());
+}
+
+
+//**********************************************************************************************************************
+// 
+//**********************************************************************************************************************
+void GameEngine::startGame()
+{
+    switch (gameState_)
+   {
+   case eGameStateStarted:
+      break;
+   case eGameStateInit:
+      gameState_ = eGameStateStarted;
+      emit gameStarted();
+      break;
+   case eGameStateGameWon:
+   case eGameStateGameOver:
+      this->reset();
+      gameState_ = eGameStateStarted;
+      emit gameStarted();
+      break;
+   }
 }
 
