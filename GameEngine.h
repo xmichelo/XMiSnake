@@ -11,6 +11,7 @@
 
 #include "Snake.h"
 #include "Pill.h"
+#include "GlWidget.h"
 
 
 //**********************************************************************************************************************
@@ -22,7 +23,7 @@ class GameEngine: public QObject
 public: // member functions
    ~GameEngine(); ///< Destructor
    void reset(); ///< Reset the game
-   void render(); ///< render the game on screen
+   void render(GlWidget& glWidget); ///< render the game on screen
    bool checkAndIterate(); ///< Check if it is already time for the next iteration
    void iterate(); ///< Iterate the game engine
    void setSnakeDirection(EDirection direction); ///< Set the direction of the snake

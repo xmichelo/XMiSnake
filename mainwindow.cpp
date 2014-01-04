@@ -115,3 +115,4 @@ void MainWindow::onGameWon()
    engine.reset();
    this->setupTimer();
 }
+

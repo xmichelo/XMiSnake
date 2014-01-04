@@ -35,7 +35,7 @@ GlWidget::~GlWidget()
 //**********************************************************************************************************************
 void GlWidget::initializeGL()
 {
-   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);   
 }
 
 
@@ -44,7 +44,7 @@ void GlWidget::initializeGL()
 //**********************************************************************************************************************
 void GlWidget::paintGL()
 {
-   getGameEngine().render();
+   getGameEngine().render(*this);
    this->swapBuffers();
 }
 

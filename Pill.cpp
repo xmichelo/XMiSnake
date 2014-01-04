@@ -67,5 +67,6 @@ void Pill::render()
    glVertex2i(xMax, yMin);
    glVertex2i(xMax, yMax);
    glVertex2i(xMin, yMax);
-   glEnd();}
+   glEnd();
+}
 

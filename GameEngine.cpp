@@ -8,6 +8,7 @@
 #include "stdafx.h"
 #include "GameEngine.h"
 #include "Constants.h"
+#include "Font.h"
 
 
 //**********************************************************************************************************************
@@ -52,13 +53,20 @@ void GameEngine::reset()
 //**********************************************************************************************************************
 // 
 //**********************************************************************************************************************
-void GameEngine::render()
+void GameEngine::render(GlWidget& glWidget)
 {
    glClearColor(kBackgroundColor.redF(), kBackgroundColor.greenF(), kBackgroundColor.blueF(), 
       kBackgroundColor.alphaF());
    glClear(GL_COLOR_BUFFER_BIT);
    snake_.render();
    pill_.render();
+   glColor4ub(255, 255, 255, 255);
+   QFont& font(getFont());
+   font.setPointSize(32);
+   glWidget.renderText(5.0 , 440.0, 0.0, QString("Score: %1").arg(this->getScore()), getFont());
+//   font.setPointSize(16);
+//   glWidget.renderText(445 , 440.0, 0.0, QString("Press 'Space' to start").arg(this->getScore()), getFont());
+
 }
 
 

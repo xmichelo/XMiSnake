@@ -44,6 +44,7 @@
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Pill.cpp" />
+    <ClCompile Include="Font.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_MainWindow.h">
@@ -55,6 +56,7 @@
     <ClInclude Include="Snake.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="Pill.h" />
+    <ClInclude Include="Font.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainWindow.ui" />
@@ -64,5 +66,13 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="XMiSnake.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LilGrotesk-Bold.otf">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="Resources\XMiSnake.ico">
+      <Filter>Resources</Filter>
+    </None>
   </ItemGroup>
 </Project>
