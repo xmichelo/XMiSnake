@@ -87,6 +87,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
    case Qt::Key_Space:
       getGameEngine().startGame();
       break;
+   case Qt::Key_Escape:
+      this->close();
+      break;
    default:
       event->ignore();
       return;
