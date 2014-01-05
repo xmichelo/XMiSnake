@@ -24,6 +24,7 @@ class GameEngine: public QObject
    enum EGameState {
       eGameStateInit,      ///< Game has been initialized
       eGameStateStarted,   ///< Game has started
+      eGameStatePaused,    ///< Game is paused
       eGameStateGameOver,  ///< Game is over
       eGameStateGameWon    ///< Game was Won
    };
@@ -36,6 +37,7 @@ public: // member functions
    bool checkAndIterate(); ///< Check if it is already time for the next iteration
    void setSnakeDirection(EDirection direction); ///< Set the direction of the snake
    qint32 getScore() const; ///< retrieve the score
+   void pauseResume(); ///< Pause/Resume the game
 
 private: // member functions
    GameEngine(QObject* parent = nullptr); ///< Default constructor
@@ -57,6 +59,8 @@ signals:
    void gameStarted(); ///< Game is started
    void gameOver(); ///< Game is over
    void gameWon(); ///< Game is won
+   void gamePaused(); ///< Game is paused
+   void gameResumed(); ///< Game has resumed
 
 private: // data members
    Snake snake_; ///< The snake

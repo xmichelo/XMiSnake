@@ -28,6 +28,8 @@ MainWindow::MainWindow(QWidget *parent, Qt::WFlags flags)
    connect(&gameEngine, SIGNAL(gameStarted()), this, SLOT(onGameStarted()));
    connect(&gameEngine, SIGNAL(gameOver()), this, SLOT(onGameOver()));
    connect(&gameEngine, SIGNAL(gameWon()), this, SLOT(onGameWon()));
+   connect(&gameEngine, SIGNAL(gamePaused()), this, SLOT(onGamePaused()));
+   connect(&gameEngine, SIGNAL(gameResumed()), this, SLOT(onGameResumed()));
 }
 
 
@@ -90,6 +92,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
    case Qt::Key_Escape:
       this->close();
       break;
+   case Qt::Key_P:
+      getGameEngine().pauseResume();
+      break;
    default:
       event->ignore();
       return;
@@ -124,6 +129,26 @@ void MainWindow::onGameOver()
 void MainWindow::onGameWon()
 {
    timer_->stop();
+   ui_.glWidget->updateGL();
+}
+
+
+//**********************************************************************************************************************
+// 
+//**********************************************************************************************************************
+void MainWindow::onGamePaused()
+{
+   timer_->stop();
+   ui_.glWidget->updateGL();
+}
+
+
+//**********************************************************************************************************************
+// 
+//**********************************************************************************************************************
+void MainWindow::onGameResumed()
+{
+   this->setupTimer();
    ui_.glWidget->updateGL();
 }
 

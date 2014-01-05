@@ -34,6 +34,8 @@ private slots:
    void onGameStarted(); ///< Slot for the 'game started' signal
    void onGameOver(); ///< Slot for the 'game over' signal
    void onGameWon(); ///< Slot for the 'game won' signal
+   void onGamePaused(); ///< Slot for the 'game paused' signal
+   void onGameResumed(); ///< Slot for the 'game resumed' signal
 
 private:
    Ui::MainWindowClass ui_; ///< The UI for the window

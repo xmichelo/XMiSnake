@@ -60,6 +60,7 @@ void GameEngine::startGame()
     switch (gameState_)
    {
    case eGameStateStarted:
+   case eGameStatePaused:
       break;
    case eGameStateInit:
       gameState_ = eGameStateStarted;
@@ -249,6 +250,11 @@ void GameEngine::renderStatusString(GlWidget& glWidget) const
       return;
    QFont& font(getFont());
    font.setPointSize(kBigFontSize);
+   if (eGameStatePaused == gameState_)
+   {
+      this->renderCenteredText(glWidget, "Pause", font, kGameStateLineYPos);
+      return;
+   }
    if (eGameStateGameOver == gameState_)
       this->renderCenteredText(glWidget, "Game Over!", font, kGameStateLineYPos);
    if (eGameStateGameWon == gameState_)
@@ -271,5 +277,24 @@ void GameEngine::renderCenteredText(GlWidget& glWidget, QString const& message, 
    QFontMetrics metrics(font);
    qint32 const xPos((glWidget.width() - metrics.width(message)) / 2);
    glWidget.renderText(xPos, yPos, 0, message, font);
+}
+
+
+//**********************************************************************************************************************
+// 
+//**********************************************************************************************************************
+void GameEngine::pauseResume()
+{
+   switch (gameState_)
+   {
+   case eGameStateStarted:
+      gameState_ = eGameStatePaused;
+      emit gamePaused();
+      break;
+   case eGameStatePaused:
+      gameState_ = eGameStateStarted;
+      emit gameResumed();
+      break;
+   }
 }
 
