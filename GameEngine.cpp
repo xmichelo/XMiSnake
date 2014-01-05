@@ -55,16 +55,23 @@ void GameEngine::reset()
 //**********************************************************************************************************************
 // 
 //**********************************************************************************************************************
-void GameEngine::render(GlWidget& glWidget)
+void GameEngine::startGame()
 {
-   glWidget.qglClearColor(kBackgroundColor);
-   glClear(GL_COLOR_BUFFER_BIT);
-   this->setArenaViewportAndProjection(glWidget);
-   this->renderArenaBackground(glWidget);
-   snake_.render(glWidget);
-   pill_.render(glWidget);
-   this->setFullWindowViewportAndProjection(glWidget);
-   this->renderScoreString(glWidget);
+    switch (gameState_)
+   {
+   case eGameStateStarted:
+      break;
+   case eGameStateInit:
+      gameState_ = eGameStateStarted;
+      emit gameStarted();
+      break;
+   case eGameStateGameWon:
+   case eGameStateGameOver:
+      this->reset();
+      gameState_ = eGameStateStarted;
+      emit gameStarted();
+      break;
+   }
 }
 
 
@@ -116,10 +123,30 @@ void GameEngine::iterate()
 
 
 //**********************************************************************************************************************
+// 
+//**********************************************************************************************************************
+void GameEngine::render(GlWidget& glWidget)
+{
+   glWidget.qglClearColor(kBackgroundColor);
+   glClear(GL_COLOR_BUFFER_BIT);
+   this->setArenaViewportAndProjection(glWidget);
+   this->renderArenaBackground(glWidget);
+   snake_.render(glWidget);
+   pill_.render(glWidget);
+   this->setFullWindowViewportAndProjection(glWidget);
+   this->renderScoreString(glWidget);
+   this->renderStatusString(glWidget);
+   
+}
+
+
+//**********************************************************************************************************************
 /// \param[in] direction The new direction of the snake
 //**********************************************************************************************************************
 void GameEngine::setSnakeDirection(EDirection direction)
 {
+   if (eGameStateStarted != gameState_)
+      return;
    snake_.setDirection(direction);
 }
 
@@ -205,7 +232,7 @@ void GameEngine::renderScoreString(GlWidget& glWidget) const
 {
    glWidget.qglColor(kFontColor);
    QFont& font(getFont());
-   font.setPointSize(kScoreFontSize);
+   font.setPointSize(kMediumFontSize);
    QFontMetrics metrics(font);
    qint32 const xPos((glWidget.width() - (kBoardWidth * kCellSize)) / 2);
    qint32 const yPos(kTopMargin + (kBoardHeight * kCellSize) + metrics.lineSpacing() - metrics.descent());
@@ -214,24 +241,35 @@ void GameEngine::renderScoreString(GlWidget& glWidget) const
 
 
 //**********************************************************************************************************************
-// 
+/// \param[in] glWidget The OpenGL widget
 //**********************************************************************************************************************
-void GameEngine::startGame()
+void GameEngine::renderStatusString(GlWidget& glWidget) const
 {
-    switch (gameState_)
-   {
-   case eGameStateStarted:
-      break;
-   case eGameStateInit:
-      gameState_ = eGameStateStarted;
-      emit gameStarted();
-      break;
-   case eGameStateGameWon:
-   case eGameStateGameOver:
-      this->reset();
-      gameState_ = eGameStateStarted;
-      emit gameStarted();
-      break;
-   }
+   if (eGameStateStarted == gameState_)
+      return;
+   QFont& font(getFont());
+   font.setPointSize(kBigFontSize);
+   if (eGameStateGameOver == gameState_)
+      this->renderCenteredText(glWidget, "Game Over!", font, kGameStateLineYPos);
+   if (eGameStateGameWon == gameState_)
+      this->renderCenteredText(glWidget, "Game Won!", font, kGameStateLineYPos);
+   font.setPointSize(kSmallFontSize);
+   this->renderCenteredText(glWidget, "Press 'Space' to start", font, kPressStartLineYPos);
+
+}
+
+
+//**********************************************************************************************************************
+/// \param[in] glWidget The OpenGL widget
+/// \param[in] message The message to display
+/// \param[in] font The font to use
+/// \param[in] yPos The vertical position of the message
+//**********************************************************************************************************************
+void GameEngine::renderCenteredText(GlWidget& glWidget, QString const& message, QFont const& font, qint32 yPos) const
+{
+   glWidget.qglColor(kFontColor);
+   QFontMetrics metrics(font);
+   qint32 const xPos((glWidget.width() - metrics.width(message)) / 2);
+   glWidget.renderText(xPos, yPos, 0, message, font);
 }
 
