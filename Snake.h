@@ -27,7 +27,7 @@ public: // member functions
    void swap(Snake& ref); ///< Swap the snake with another one
    void reset(QPoint const& position); ///< Reset the snake
    void render(GlWidget& glWidget); ///< Render the snake on screen
-   void setDirection(EDirection direction); ///< Set the direction of the snake
+   void addNextDirection(EDirection direction); ///< Set the direction of the snake
    bool move(); ///< move the snake in the current direction
    bool isOverPoint(QPoint const point) const; ///< Test if the snake is over a given point
    QPoint getHeadPosition() const; ///< Retrieve the position of the snake's head
@@ -39,7 +39,7 @@ private: // member functions
 
 private: // data members
    DequeQPoint points_; ///< The list of point representing the snake
-   EDirection direction_; ///< The direction of the snake
+   std::deque<EDirection> direction_; ///< The direction of the snake
    bool markedForGrowth_; ///< Is the snake marked for growth
 };
 

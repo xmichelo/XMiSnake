@@ -148,7 +148,7 @@ void GameEngine::setSnakeDirection(EDirection direction)
 {
    if (eGameStateStarted != gameState_)
       return;
-   snake_.setDirection(direction);
+   snake_.addNextDirection(direction);
 }
 
 

@@ -37,7 +37,7 @@ void renderSnakePart(QPoint const& position)
 //**********************************************************************************************************************
 Snake::Snake(QPoint const& position)
    : points_(1, position)
-   , direction_(eUp)
+   , direction_(1, eUp)
    , markedForGrowth_(false)
 {
 
@@ -81,7 +81,7 @@ Snake& Snake::operator=(Snake& ref)
 void Snake::swap(Snake& ref)
 {
    points_.swap(ref.points_);
-   std::swap(direction_, ref.direction_);
+   direction_.swap(ref.direction_);
    std::swap(markedForGrowth_, ref.markedForGrowth_);
 }
 
@@ -109,9 +109,10 @@ void Snake::render(GlWidget& glWidget)
 //**********************************************************************************************************************
 /// \param[in] direction The new direction of the snake
 //**********************************************************************************************************************
-void Snake::setDirection(EDirection direction)
+void Snake::addNextDirection(EDirection direction)
 {
-   direction_ = direction;
+   if (direction != direction_.back())
+      direction_.push_back(direction);
 }
 
 
@@ -124,7 +125,9 @@ bool Snake::move()
 {
    Q_ASSERT(points_.size() > 0);
    QPoint point(points_.back());
-   switch (direction_)
+   if (direction_.size() > 1)
+      direction_.pop_front();
+   switch (direction_.front())
    {
    case eUp:
       if (point.y() <= 0)
