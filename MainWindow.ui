@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>XMi Snake</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="XMiSnake.qrc">
+    <normaloff>:/MainWindow/Resources/XMiSnakeIcon.ico</normaloff>:/MainWindow/Resources/XMiSnakeIcon.ico</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="spacing">

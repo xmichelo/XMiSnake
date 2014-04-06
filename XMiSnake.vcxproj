@@ -175,7 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\LilGrotesk-Bold.otf" />
-    <None Include="Resources\XMiSnake.ico" />
+    <None Include="Resources\XMiSnakeIcon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

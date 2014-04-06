@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/MainWindow">
-        <file>Resources/XMiSnake.ico</file>
         <file alias="lilGrotesk.otf">Resources/LilGrotesk-Bold.otf</file>
+        <file>Resources/XMiSnakeIcon.ico</file>
     </qresource>
 </RCC>

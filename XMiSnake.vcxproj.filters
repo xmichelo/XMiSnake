@@ -71,7 +71,7 @@
     <None Include="Resources\LilGrotesk-Bold.otf">
       <Filter>Resources</Filter>
     </None>
-    <None Include="Resources\XMiSnake.ico">
+    <None Include="Resources\XMiSnakeIcon.ico">
       <Filter>Resources</Filter>
     </None>
   </ItemGroup>
