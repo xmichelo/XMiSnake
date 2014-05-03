@@ -19,7 +19,7 @@ namespace {
 /// \param[in] parent The parent widget of the window
 /// \param[in] flags The window flags
 //**********************************************************************************************************************
-MainWindow::MainWindow(QWidget *parent, Qt::WFlags flags)
+MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags)
     : QMainWindow(parent, flags)
     , timer_(new QTimer(this))
 {

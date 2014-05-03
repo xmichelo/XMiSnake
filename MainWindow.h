@@ -9,7 +9,6 @@
 #define XMI__SNAKE__MAINWINDOW__H
 
 
-#include <QtGui/QMainWindow>
 #include "ui_MainWindow.h"
 
 
@@ -20,7 +19,7 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 public:
-   MainWindow(QWidget *parent = nullptr, Qt::WFlags = 0); ///< Default constructor
+   MainWindow(QWidget *parent = nullptr, Qt::WindowFlags = 0); ///< Default constructor
    ~MainWindow(); ///< Destructor
 
 private: // data members
