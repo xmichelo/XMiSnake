@@ -15,18 +15,18 @@
 !define UNINSTALLER_FILE_NAME Uninstall.exe
 !define REGISTRY_UNINSTALLER_FOLDER Software\Microsoft\Windows\CurrentVersion\Uninstall
 !define OUTPUT_DIR _build
-!define VS_DEVENV_PATH "C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\IDE\devenv.com"
-!define VC_REDIST_RUNTIME_FILE "vs2010sp1_vcredist_x86.exe"
+!define VS_DEVENV_PATH "c:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\devenv.com"
+!define VC_REDIST_RUNTIME_FILE "vcredist_x86.exe"
 !define WEBSITE "http://x-mi.com/"
 !define AUTHOR "Xavier Michelon"
 !define COMPANY "x-mi.com"
-!define VERSION_MAJOR 1
+!define VERSION_MAJOR 2
 !define VERSION_MINOR 0
 !define APP_VERSION "${VERSION_MAJOR}.${VERSION_MINOR}"
 !define LEFT_IMAGE_PATH "resources\installerLeftImage.bmp"
 !define TOP_IMAGE_PATH "resources\installerTopImage.bmp"
 !define APP_DATA_REGISTRY_KEY "Software\${COMPANY}\${APP_NAME}"
-
+!define QT_DIR "c:\Qt\5.2.1_vs2012\qtbase"
 
 # Settings for the Modern UI 2 NSIS plugin
 !define MUI_WELCOMEFINISHPAGE_BITMAP ${LEFT_IMAGE_PATH}
@@ -85,7 +85,7 @@ FunctionEnd
 Function InstallVCRedistributableRuntime
    SetOutPath $TEMP
    ${Unless} ${FileExists} "$TEMP\${VC_REDIST_RUNTIME_FILE}"         
-       DetailPrint "Installing VC++ 2010 SP1 Redistributable Runtime"         
+       DetailPrint "Installing VC++ 2012 Update 4 Redistributable Runtime"         
        File "vendor\${VC_REDIST_RUNTIME_FILE}"
        ExecWait "$TEMP\${VC_REDIST_RUNTIME_FILE} /q"         
        DetailPrint "Cleaning up"         
@@ -140,15 +140,19 @@ SetShellVarContext all
 
 call InstallVCRedistributableRuntime
 
-setOutPath $INSTDIR
 # copy file
+setOutPath $INSTDIR
 file "${EXE_SRC_DIR}\${APP_NAME}.exe"
-file "$%QTDIR%\bin\QtCore4.dll"
-file "$%QTDIR%\bin\QtGui4.dll"
-file "$%QTDIR%\bin\QtOpenGL4.dll"
+file "${QT_DIR}\bin\Qt5Core.dll"
+file "${QT_DIR}\bin\Qt5Gui.dll"
+file "${QT_DIR}\bin\Qt5Widgets.dll"
+file "${QT_DIR}\bin\Qt5OpenGL.dll"
 file "resources\ReadMe.txt"
 file "resources\GPLv3.txt"
 file "resources\OFL.txt"
+
+setOutPath $INSTDIR\platforms
+file "${QT_DIR}\plugins\platforms\qwindows.dll"
 
 # Create uninstall
 WriteUninstaller "${UNINSTALLER_FILE_NAME}"
@@ -213,13 +217,16 @@ Section "Uninstall"
 # Remove application files and folders
 SetShellVarContext all
 Delete "$INSTDIR\${APP_NAME}.exe"
-Delete "$INSTDIR\QtCore4.dll"
-Delete "$INSTDIR\QtGui4.dll"
-Delete "$INSTDIR\QtOpenGL4.dll"
+Delete "$INSTDIR\Qt5Core.dll"
+Delete "$INSTDIR\Qt5Gui.dll"
+Delete "$INSTDIR\Qt5Widgets.dll"
+Delete "$INSTDIR\Qt5OpenGL.dll"
 Delete "$INSTDIR\${UNINSTALLER_FILE_NAME}"
 Delete "$INSTDIR\ReadMe.txt"
 Delete "$INSTDIR\GPLv3.txt"
 Delete "$INSTDIR\OFL.txt"
+Delete "$INSTDIR\platforms\qwindows.dll"
+RMDir "$INSTDIR\platforms"
 RMDir "$INSTDIR"
 
 # Remove registry keys that are used for the uninstaller

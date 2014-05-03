@@ -1,7 +1,7 @@
 XMi Snake
 =========
 
-v1.0 - [Xavier Michelon](http://x-mi.com) - 2014
+v2.0 - [Xavier Michelon](http://x-mi.com) - 2014
 
 A minimalist implementation of the classic Snake game.
 
@@ -23,3 +23,7 @@ Release History
 2014-04-06: v1.0
 
  * Initial release
+
+2014-05-03: v2.0
+
+ * Migrated to Qt5 and Visual Studio 2012
