@@ -15,7 +15,7 @@
 !define UNINSTALLER_FILE_NAME Uninstall.exe
 !define REGISTRY_UNINSTALLER_FOLDER Software\Microsoft\Windows\CurrentVersion\Uninstall
 !define OUTPUT_DIR _build
-!define VS_DEVENV_PATH "c:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\IDE\devenv.com"
+!define VS_DEVENV_PATH "c:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\devenv.com"
 !define VC_REDIST_RUNTIME_FILE "vcredist_x86.exe"
 !define WEBSITE "http://x-mi.com/"
 !define AUTHOR "Xavier Michelon"
@@ -26,7 +26,7 @@
 !define LEFT_IMAGE_PATH "resources\installerLeftImage.bmp"
 !define TOP_IMAGE_PATH "resources\installerTopImage.bmp"
 !define APP_DATA_REGISTRY_KEY "Software\${COMPANY}\${APP_NAME}"
-!define QT_DIR "c:\Qt\5.2.1_vs2012\qtbase"
+!define QT_DIR "c:\Qt\5.2.1_vs2013\qtbase"
 
 # Settings for the Modern UI 2 NSIS plugin
 !define MUI_WELCOMEFINISHPAGE_BITMAP ${LEFT_IMAGE_PATH}
@@ -85,7 +85,7 @@ FunctionEnd
 Function InstallVCRedistributableRuntime
    SetOutPath $TEMP
    ${Unless} ${FileExists} "$TEMP\${VC_REDIST_RUNTIME_FILE}"         
-       DetailPrint "Installing VC++ 2012 Update 4 Redistributable Runtime"         
+       DetailPrint "Installing VC++ 2013 Redistributable Runtime"         
        File "vendor\${VC_REDIST_RUNTIME_FILE}"
        ExecWait "$TEMP\${VC_REDIST_RUNTIME_FILE} /q"         
        DetailPrint "Cleaning up"         
