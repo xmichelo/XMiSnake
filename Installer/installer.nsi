@@ -20,13 +20,12 @@
 !define WEBSITE "http://x-mi.com/"
 !define AUTHOR "Xavier Michelon"
 !define COMPANY "x-mi.com"
-!define VERSION_MAJOR 2
+!define VERSION_MAJOR 3
 !define VERSION_MINOR 0
 !define APP_VERSION "${VERSION_MAJOR}.${VERSION_MINOR}"
 !define LEFT_IMAGE_PATH "resources\installerLeftImage.bmp"
 !define TOP_IMAGE_PATH "resources\installerTopImage.bmp"
 !define APP_DATA_REGISTRY_KEY "Software\${COMPANY}\${APP_NAME}"
-!define QT_DIR "c:\Qt\5.2.1_vs2013\qtbase"
 
 # Settings for the Modern UI 2 NSIS plugin
 !define MUI_WELCOMEFINISHPAGE_BITMAP ${LEFT_IMAGE_PATH}
@@ -143,16 +142,19 @@ call InstallVCRedistributableRuntime
 # copy file
 setOutPath $INSTDIR
 file "${EXE_SRC_DIR}\${APP_NAME}.exe"
-file "${QT_DIR}\bin\Qt5Core.dll"
-file "${QT_DIR}\bin\Qt5Gui.dll"
-file "${QT_DIR}\bin\Qt5Widgets.dll"
-file "${QT_DIR}\bin\Qt5OpenGL.dll"
+file "$%QTDIR%\bin\Qt5Core.dll"
+file "$%QTDIR%\bin\Qt5Gui.dll"
+file "$%QTDIR%\bin\Qt5Widgets.dll"
+file "$%QTDIR%\bin\Qt5OpenGL.dll"
+file "$%QTDIR%\bin\icuin52.dll"
+file "$%QTDIR%\bin\icuuc52.dll"
+file "$%QTDIR%\bin\icudt52.dll"
 file "resources\ReadMe.txt"
 file "resources\GPLv3.txt"
 file "resources\OFL.txt"
 
 setOutPath $INSTDIR\platforms
-file "${QT_DIR}\plugins\platforms\qwindows.dll"
+file "$%QTDIR%\plugins\platforms\qwindows.dll"
 
 # Create uninstall
 WriteUninstaller "${UNINSTALLER_FILE_NAME}"
@@ -221,12 +223,15 @@ Delete "$INSTDIR\Qt5Core.dll"
 Delete "$INSTDIR\Qt5Gui.dll"
 Delete "$INSTDIR\Qt5Widgets.dll"
 Delete "$INSTDIR\Qt5OpenGL.dll"
-Delete "$INSTDIR\${UNINSTALLER_FILE_NAME}"
+Delete "$INSTDIR\icuin52.dll"
+Delete "$INSTDIR\icuuc52.dll"
+Delete "$INSTDIR\icudt52.dll"
 Delete "$INSTDIR\ReadMe.txt"
 Delete "$INSTDIR\GPLv3.txt"
 Delete "$INSTDIR\OFL.txt"
 Delete "$INSTDIR\platforms\qwindows.dll"
 RMDir "$INSTDIR\platforms"
+Delete "$INSTDIR\${UNINSTALLER_FILE_NAME}"
 RMDir "$INSTDIR"
 
 # Remove registry keys that are used for the uninstaller
