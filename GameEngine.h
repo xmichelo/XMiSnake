@@ -71,4 +71,7 @@ private: // data members
 };
 
 
+GameEngine& getGameEngine(); ///< Retrieve the only allowed instance of the GameEngine class
+
+
 #endif // #ifndef XMI__SNAKE__GAME__ENGINE__H

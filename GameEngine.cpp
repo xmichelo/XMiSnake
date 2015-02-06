@@ -295,6 +295,8 @@ void GameEngine::pauseResume()
       gameState_ = eGameStateStarted;
       emit gameResumed();
       break;
+   default:
+      break;
    }
 }
 

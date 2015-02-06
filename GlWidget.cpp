@@ -55,4 +55,5 @@ void GlWidget::paintGL()
 //**********************************************************************************************************************
 void GlWidget::resizeGL(int width, int height)
 {
+   glViewport(0, 0, width, height);
 }

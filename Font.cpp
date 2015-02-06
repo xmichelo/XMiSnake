@@ -7,7 +7,7 @@
 
 #include "stdafx.h"
 #include "Font.h"
-#include <exception>
+#include <stdexcept>
 
 
 void initFont(); ///< Initialize the font system
@@ -16,7 +16,6 @@ void initFont(); ///< Initialize the font system
 namespace {
    QString const kFontResourcePath(":/MainWindow/lilGrotesk.otf"); ///< The font resource path
    QString const kFontName("LilGrotesk Bold"); ///< The font family name
-   qint32 const kFontSize(30); ///< The font size
 }
   
 
