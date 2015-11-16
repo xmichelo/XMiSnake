@@ -1,6 +1,6 @@
 #XMi Snake
 
-v3.0 - [Xavier Michelon](http://x-mi.com) - 2014
+v3.1 - [Xavier Michelon](http://x-mi.com) - 2015
 
 A minimalist implementation of the classic Snake game.
 
@@ -18,14 +18,12 @@ This program uses the [Lil Grotesk](http://openfontlibrary.org/en/font/lil-grote
 ##Release History
 
 
-* 2014-04-06: v1.0
-
+* **2014-04-06: v1.0**
  * Initial release
-
-* 2014-05-03: v2.0
-
+* **2014-05-03: v2.0**
  * Migrated to Qt 5 and Visual Studio 2012
-
-* 2014-05-24: v3.0
-
+* **2014-05-24: v3.0**
  * Migrated to Qt 5.3 and Visual Studio 2013
+* **2015-11-16: v3.1**
+ * First version available on github
+ * Converted README file to markdown format
